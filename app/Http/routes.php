@@ -13,9 +13,10 @@
 
 Route::get('/', 'WelcomeController@index');
 
-Route::get('/exemplo', 'WelcomeController@exemplo');
+Route::get('admin/categories', 'AdminCategoriesController@categoria');
 
-Route::get('home', 'HomeController@index');
+Route::get('admin/products', 'AdminProductsController@produto');
+
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

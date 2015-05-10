@@ -1,50 +1,59 @@
 <?php namespace CodeCommerce\Http\Controllers;
 
- use CodeCommerce\Product;
- 
+use CodeCommerce\Product;
+use CodeCommerce\Http\Requests;
+use CodeCommerce\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+
 class AdminProductsController extends Controller {
-
-  
-
-	/*
-	|--------------------------------------------------------------------------
-	| Welcome Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller renders the "marketing page" for the application and
-	| is configured to only allow guests. Like most of the other sample
-	| controllers, you are free to modify or remove it as you desire.
-	|
-	*/
-
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	private $products;
+    
+	private $productModel;
 	
-	public function __construct(Product $product)
+	public function __construct(Product $productModel)
 	{
-		$this->middleware('guest');
-		$this->products = $product;
+		 $this->productModel = $productModel;
 	}
-
-	/**
-	 * Show the application welcome screen to the user.
-	 *
-	 * @return Response
-	 */
+	
 	public function index()
 	{
-		return view ('welcome');
+		$products = $this->productModel->all();
+		return view('products.index', compact('products'));
+		
 	}
-	 public function produto()
-		   {
-			   $products = $this->products->all();
-			 
-			   return view('produto', compact('products'));
-		   }
+	
+    public function create()
+	{
+		return view('products.create');
 	}
-         
+	
+	public function store(Requests\ProductRequest $request)
+	{
+	 $input = $request->all();
+	 
+	 $product = $this->productModel->fill($input);
+	 
+	 $product->save();
+	 
+	 return redirect()->route('products');
+	 }	
+		
+		public function edit($id)
+		{
+		 $product = $this->productModel->find($id);
+          return view('products.edit', compact('product'));		 
+		}
+		
+		public function update(Requests\ProductRequest $request, $id)
+		{
+			$this->productModel->find($id)->update($request->all());
+		    return redirect()->route('products');
+		}
+		
+		public function destroy($id)
+		{
+			$this->productModel->find($id)->delete();
+			return redirect()->route('products');
+		}
+}
 

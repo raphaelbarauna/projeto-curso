@@ -1,50 +1,58 @@
 <?php namespace CodeCommerce\Http\Controllers;
 
- use CodeCommerce\Category;
- 
+use CodeCommerce\Category;
+use CodeCommerce\Http\Requests;
+use CodeCommerce\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+
 class AdminCategoriesController extends Controller {
-
-  
-
-	/*
-	|--------------------------------------------------------------------------
-	| Welcome Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller renders the "marketing page" for the application and
-	| is configured to only allow guests. Like most of the other sample
-	| controllers, you are free to modify or remove it as you desire.
-	|
-	*/
-
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	private $categories;
+    
+	private $categoryModel;
 	
-	public function __construct(Category $category)
+	public function __construct(Category $categoryModel)
 	{
-		$this->middleware('guest');
-		$this->categories = $category;
+		 $this->categoryModel = $categoryModel;
 	}
-
-	/**
-	 * Show the application welcome screen to the user.
-	 *
-	 * @return Response
-	 */
+	
 	public function index()
 	{
-		return view ('welcome');
+		$categories = $this->categoryModel->all();
+		return view('categories.index', compact('categories'));
+		
 	}
-	 public function categoria()
-		   {
-			   $categories = $this->categories->all();
-			 
-			   return view('categoria', compact('categories'));
-		   }
+	
+    public function create()
+	{
+		return view('categories.create');
 	}
-         
-
+	
+	public function store(Requests\CategoryRequest $request)
+	{
+	 $input = $request->all();
+	 
+	 $category = $this->categoryModel->fill($input);
+	 
+	 $category->save();
+	 
+	 return redirect()->route('categories');
+	 }	
+		
+		public function edit($id)
+		{
+		 $category = $this->categoryModel->find($id);
+          return view('categories.edit', compact('category'));		 
+		}
+		
+		public function update(Requests\CategoryRequest $request, $id)
+		{
+			$this->categoryModel->find($id)->update($request->all());
+		    return redirect()->route('categories');
+		}
+		
+		public function destroy($id)
+		{
+			$this->categoryModel->find($id)->delete();
+			return redirect()->route('categories');
+		}
+}

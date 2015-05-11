@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "hash": "ec39dda6bab3e27e51bc8f76f28c2c84",
+=======
+    "hash": "b1f6e8901d018b08f7def9bc4853d18d",
+>>>>>>> 34db4ee68edd01f262e076993438360e35ee6def
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -223,6 +227,7 @@
             "time": "2014-12-20 21:24:13"
         },
         {
+<<<<<<< HEAD
             "name": "fzaninotto/faker",
             "version": "v1.4.0",
             "source": {
@@ -271,6 +276,8 @@
             "time": "2014-06-04 14:43:02"
         },
         {
+=======
+>>>>>>> 34db4ee68edd01f262e076993438360e35ee6def
             "name": "illuminate/html",
             "version": "v5.0.0",
             "source": {

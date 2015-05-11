@@ -10,19 +10,19 @@ class ProductTableSeeder extends Seeder {
 	
 	public function run()
 	{
-		Model::unguard();
+		
        DB::table('products')->truncate();
-	   
 	   $faker = Faker::create();
 	   
-	   foreach(range(1,10) as $i)
-		// $this->call('UserTableSeeder');
-		$this->call('ProductTableSeeder');
+	   foreach(range(1,40) as $i){
+				
 		 Product::create([
 		  'name' => $faker->name(),
-		  'price' => $faker->randomNumber(),
-		  'description' => $faker->sentence()
-		 ])
+		  'price' => $faker->randomNumber(2),
+		  'description' => $faker->sentence(),
+		  'category_id' => $faker->numberBetween(1,15)
+		 ]);
+	   }
 	}
 
 }

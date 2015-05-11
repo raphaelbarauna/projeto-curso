@@ -4,6 +4,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model {
 
-	protected $fillable = ['name','description','price'];
-
+	protected $fillable = [
+	'category_id',
+	'name',
+	'price',
+	'description'
+		];
+      public function category()
+	  {
+		  return $this->belongsTo('CodeCommerce\Category');
+	  }
 }

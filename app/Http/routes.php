@@ -32,10 +32,7 @@ Route::put('products/{id}/update',['as'=>'products.update', 'uses'=>'AdminProduc
 
 Route::get('/', 'WelcomeController@index');
 
-//Route::get('categories', 'AdminCategoriesController@categoria');
 
-//Route::get('products', 'AdminProductsController@produto');
-	
 	
 
 

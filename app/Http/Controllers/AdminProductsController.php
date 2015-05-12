@@ -18,7 +18,7 @@ class AdminProductsController extends Controller {
 	
 	public function index()
 	{
-		$products = $this->productModel->all();
+		$products = $this->productModel->paginate(10);
 		return view('products.index', compact('products'));
 		
 	}
@@ -41,10 +41,12 @@ class AdminProductsController extends Controller {
 	 return redirect()->route('products');
 	 }	
 		
-		public function edit($id)
+		public function edit($id, Category $category)
 		{
-		 $product = $this->productModel->find($id);
-          return view('products.edit', compact('product'));		 
+            $categories = $category->lists('name','id');
+		    $product = $this->productModel->find($id);
+            return view('products.edit', compact('product', 'categories'));
+
 		}
 		
 		public function update(Requests\ProductRequest $request, $id)

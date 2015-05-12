@@ -25,14 +25,15 @@
    <td>{{$product->price}}</td>
    <td>{{ $product->category->name}}</td>
    <td> 
-	 <a href="{{ route('products.destroy',['id'=>$product->id])}}">Deletar<a/>
+	 <a href="{{ route('products.destroy',['id'=>$product->id])}}">Deletar</a>
       |  
-	<a href="{{ route('products.edit',['id'=>$product->id])}}">Editar<a/>
+	<a href="{{ route('products.edit',['id'=>$product->id])}}">Editar</a>
    </td>
 </tr>
   @endforeach
 
   </table>
+  {!! $products->render()!!}
 </div>
 
 

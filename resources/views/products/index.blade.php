@@ -26,8 +26,9 @@
    <td>{{$product->description}}</td>
    <td>{{$product->price}}</td>
    <td>{{$product->category->name}}</td>
-   <td>{{$product->featured}}</td>
-   <td>{{$product->recommend}}</td>
+   <td>{{($product->featured)?'Yes':'No'}}</td>
+   <td>{{($product->recommend)?'Yes':'No'}}
+   </td>
       
    <td> 
 	 <a href="{{ route('products.destroy',['id'=>$product->id])}}">Deletar</a>

@@ -39,7 +39,9 @@
 		   </div>
 		  
 		   <div class="form-group">
-    		{!! Form::label('Recommend ?') !!}
+		   {!!Form::radio( bool $checked = null)!!}
+			
+			{!! Form::label('Recommend ?') !!}
 			{!! Form::radio('recommend', 1,['class'=>'form-control']) !!} Yes
             {!! Form::radio('recommend', 0,['class'=>'form-control']) !!} No
 		   </div>

@@ -21,6 +21,7 @@ class ProductTableSeeder extends Seeder {
 		  'price' => $faker->randomNumber(2),
 		  'description' => $faker->sentence(),
 		  'category_id' => $faker->numberBetween(1,15)
+		  'featured' => $faker->
 		 ]);
 	   }
 	}

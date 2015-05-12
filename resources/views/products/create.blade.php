@@ -20,20 +20,32 @@
 		   {!! Form::label('category', 'Category:') !!}
 		   {!! Form::select('category_id', $categories, ['class'=>'form-control']) !!}
 		   </div>
-		   
+		   		   			   
 		   <div class="form-group">
-		   {!! Form::label('name', 'Name:') !!}
+		   {!! Form::label('name', 'Name :') !!}
 		   {!! Form::text('name', null, ['class'=>'form-control']) !!}
 		   </div>
 	      
 		  <div class="form-group">
-		   {!! Form::label('price', 'Price:') !!}
+		   {!! Form::label('price', 'Price :') !!}
 		   {!! Form::text('price', null, ['class'=>'form-control']) !!}
 		   </div>
 	      
-		  
 		  <div class="form-group">
-		   {!! Form::label('description', 'Description:') !!}
+    		{!! Form::label('Featured ?') !!}
+			{!! Form::radio('featured', 1,['class'=>'form-control']) !!} Yes
+            {!! Form::radio('featured', 0,['class'=>'form-control']) !!} No
+              
+		   </div>
+		  
+		   <div class="form-group">
+    		{!! Form::label('Recommend ?') !!}
+			{!! Form::radio('recommend', 1,['class'=>'form-control']) !!} Yes
+            {!! Form::radio('recommend', 0,['class'=>'form-control']) !!} No
+		   </div>
+          
+		  <div class="form-group">
+		   {!! Form::label('description', 'Description :') !!}
 		   {!! Form::textarea('description', null, ['class'=>'form-control']) !!}
 		  </div>
           

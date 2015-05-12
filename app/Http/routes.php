@@ -29,7 +29,7 @@ Route::put('products/{id}/update',['as'=>'products.update', 'uses'=>'AdminProduc
 });
 
 
-
+Route::get('/home', 'HomeController@index');
 Route::get('/', 'WelcomeController@index');
 
 

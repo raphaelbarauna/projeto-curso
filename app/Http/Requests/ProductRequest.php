@@ -25,7 +25,8 @@ class ProductRequest extends Request {
 			'name'=> 'required|min:5',
 			'price' => 'required',
 			'description' => 'required',
-			
+			'featured' => 'required',
+			'recommend' => 'required',
 		];
 	}
 

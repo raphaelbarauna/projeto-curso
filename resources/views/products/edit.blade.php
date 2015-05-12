@@ -41,8 +41,8 @@
 		  
 		   <div class="form-group">
     		{!! Form::label('Recommend ?') !!}
-			{!! Form::radio('recommend', $product->recommend, ['class' => 'form-control']) !!} Yes
-            {!! Form::radio('recommend', $product->recommend, ['class' => 'form-control']) !!} No
+			{!! Form::radio('recommend', 1, ['class' => 'form-control']) !!} Yes
+            {!! Form::radio('recommend', 0, ['class' => 'form-control']) !!} No
 		  </div>
 		  
 		  <div class="form-group">

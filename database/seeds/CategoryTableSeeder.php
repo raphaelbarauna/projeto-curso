@@ -5,19 +5,21 @@ use Illuminate\Database\Eloquent\Model;
 use CodeCommerce\Category;
 use Faker\Factory as Faker;
 
-class CategoryTableSeeder extends Seeder {
+class CategoryTableSeeder extends Seeder
+ {
 
 	public function run()
 	{
-		DB::table('categories')->truncate();
+		
+		DB::table('categories')->delete();
 		
 		$faker = Faker::create();
 		
 		foreach(range(1,15) as $i){
-			Category::create([
+		Category::create([
 		'name' => $faker->word(),
 		'description' => $faker->sentence()
-		]);
+	   	]);
 			
 		}
 			

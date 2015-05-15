@@ -1,10 +1,10 @@
 @extends('app')
 @section('content')
 <div class="container">
-<h1>Products</h1>
+<h1>Produtos</h1>
 
 
-<a href="{{ route ('products.create')}}" class="btn btn-default">New product</a>
+<a href="{{ route ('products.create')}}" class="btn btn-default">Novo Produto</a>
 <br>
 <br>
 <table class="table">
@@ -35,7 +35,7 @@
       |  
 	<a href="{{ route('products.edit',['id'=>$product->id])}}">Editar</a>
 	   |
-	<a href="{{ route('products.images',['id'=>$product->id])}}">Adicionar Imagem</a>   
+	<a href="{{ route('products.images',['id'=>$product->id])}}">Imagem</a>   
 	
    </td>
 </tr>

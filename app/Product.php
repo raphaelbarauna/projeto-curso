@@ -13,12 +13,30 @@ class Product extends Model {
 	    'recommend'	
 	];
 		
-    public function images()
-	{
-		    return $this->hasMany('CodeCommerce\ProductImage');
-	}		
+   // public function images()
+	//{
+	//	    return $this->hasMany('CodeCommerce\ProductImage');
+	//}		
     public function category()
 	  {
 		    return $this->belongsTo('CodeCommerce\Category');
 	  }
+	   public function tags()
+	{
+		    return $this->belongsToMany('CodeCommerce\Tag');
+	}		
+	// public function getTagListAttribute()
+	//{
+		//    return $this->tags->lists('name');
+			
+	//		return implode ('')
+	//}	
+	public function scopeFeatured($query)
+	{
+		    return $query->where('featured','=', 1);
+	}		
+	public function scopeRecommend($query)
+	{
+		    return $query->where('recommend','=', 1);
+	}	
 }

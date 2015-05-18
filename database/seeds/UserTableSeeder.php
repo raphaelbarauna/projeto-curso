@@ -9,15 +9,15 @@ class UserTableSeeder extends Seeder {
 
 	public function run()
 	{
-		DB::table('users')->delete();
+		DB::table('users')->truncate();
 		
 		$faker = Faker::create();
 		
 		foreach(range(1,10) as $i){
-		User::create([
-		'name' => $faker->userName(),
-		'email'=> $faker->freeEmail(),
-		'password' => Hash::make($faker->word)
+		    User::create([
+		    'name' => $faker->userName(),
+		    'email'=> $faker->freeEmail(),
+		    'password' => Hash::make($faker->word)
 		]);
 			
 		}

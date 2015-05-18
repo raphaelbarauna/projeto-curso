@@ -10,18 +10,19 @@ class ProductTableSeeder extends Seeder
 	
 	public function run()
 	{		
-       DB::table('products')->delete();
+      
+  	    DB::table('products')->delete();
 	   
-	   $faker = Faker::create();
+	    $faker = Faker::create();
 	   
 	    foreach(range(1,40) as $i){			
-		Product::create([
-		'name' => $faker->word(),
-		'price' => $faker->randomNumber(2),
-		'description' => $faker->sentence(),
-		'featured' => $faker->numberBetween(1,2),
-		'recommend' =>$faker->numberBetween(1,2),
-		'category_id' => $faker->numberBetween(1,15)
+		    Product::create([
+		        'name' =>$faker->word(),
+		        'price' =>$faker->randomNumber(2),
+		        'description' =>$faker->sentence(),
+		        'featured' => $faker->numberBetween(1, 2),
+		        'recommend' =>$faker->numberBetween(1, 2),
+		        'category_id' =>$faker->numberBetween(1, 15)
 		 ]);
 	   }
 	}

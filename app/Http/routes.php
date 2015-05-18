@@ -44,7 +44,7 @@
 
 
 Route::get('/home', 'HomeController@index');
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'StoreController@index');
 
 
 	

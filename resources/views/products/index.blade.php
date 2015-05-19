@@ -42,7 +42,7 @@
   @endforeach
 
   </table>
-  {!! $products->render()!!}
+  {!! $products->render() !!}
 </div>
 
 

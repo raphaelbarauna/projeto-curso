@@ -3,7 +3,6 @@
 <div class="container">
 <h1>Categories</h1>
 
-
 <a href="{{ route ('categories.create')}}" class="btn btn-default">Nova Categoria</a>
 <br>
 <br>

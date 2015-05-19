@@ -27,13 +27,14 @@ class AdminCategoriesController extends Controller {
 		return view('categories.create');
 	}
 	
+	//Adicionar os dados ao CategoryModel
 	public function store(Requests\CategoryRequest $request)
 	{
-	 $input = $request->all();
+	 $input = $request->all(); // recebendo todos os dados da request
 	 
-	 $category = $this->categoryModel->fill($input);
+	 $category = $this->categoryModel->fill($input);  //passar os dados preenchidos
 	 
-	 $category->save();
+	 $category->save(); // salvar os dados no banco.
 	 
 	 return redirect()->route('categories');
 	 }	

@@ -16,7 +16,7 @@
 	Route::group(['prefix'=>'categories'], function(){
 		
         Route::get('/',['as'=>'categories', 'uses'=>'AdminCategoriesController@index']);
-        Route::post('/',['as'=>'categories.store', 'uses'=>'AdminCategoriesController@store']);
+        Route::post('/',['as'=>'categories.store', 'uses'=>'AdminCategoriesController@store']); // Rota para action adicionar ao banco
         Route::get('/create',['as'=>'categories.create', 'uses'=>'AdminCategoriesController@create']);
         Route::get('/{id}/destroy',['as'=>'categories.destroy', 'uses'=>'AdminCategoriesController@destroy']);
         Route::get('/{id}/edit',['as'=>'categories.edit', 'uses'=>'AdminCategoriesController@edit']);

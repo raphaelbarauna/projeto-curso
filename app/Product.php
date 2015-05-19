@@ -13,10 +13,10 @@ class Product extends Model {
 	    'recommend'	
 	];
 		
-   // public function images()
-	//{
-	//	    return $this->hasMany('CodeCommerce\ProductImage');
-	//}		
+    public function images()
+	{
+		    return $this->hasMany('CodeCommerce\ProductImage');
+	}		
     public function category()
 	  {
 		    return $this->belongsTo('CodeCommerce\Category');
@@ -25,12 +25,17 @@ class Product extends Model {
 	{
 		    return $this->belongsToMany('CodeCommerce\Tag');
 	}		
-	// public function getTagListAttribute()
-	//{
-		//    return $this->tags->lists('name');
+	 public function getTagListAttribute()
+	{
+		   return $this->tags->lists('name');
 			
-	//		return implode ('')
-	//}	
+			return implode (',', $tags);
+	}	
+	public function getNameDescriptionAttribute()
+	{
+		return $this->name." - ".$this->description;
+	}
+		
 	public function scopeFeatured($query)
 	{
 		    return $query->where('featured','=', 1);

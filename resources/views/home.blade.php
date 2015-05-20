@@ -5,12 +5,13 @@
 <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.css' rel='stylesheet' />
 <style>
   body { margin:0; padding:0; }
-  #map { position:absolute; right:30%; top:20%; bottom:0; width:20%; height: 60%;}
+  #map { position:absolute; right:30%; top:20%; bottom:0; width:30%; height: 60%;}
 </style>
 
 <style>
   body { margin:0; padding:0; }
-  #map { position:absolute; right:30%; top:20%; bottom:0; width:20%; height: 60%;}
+  #map { position:absolute; right:30%; top:20%; bottom:0; width:30%; height: 60%;}
+ 
  <div class="col-sm-3">
     <div class="left-sidebar">
 <h2>Restaurantes</h2>
@@ -41,10 +42,16 @@
                         <h4 class="panel-title"><a href="#"></a></h4>
                     </div>
                 </div>
+	<div id='map'></div>
+<a href='#' id='geolocate' class='ui-button'>Find me</a>
+	
 <script>
 L.mapbox.accessToken = 'pk.eyJ1Ijoic2Vrb2xhIiwiYSI6Ik5lV1dNV0kifQ.LbGm-Y6EyUaPQwRcSMS0rw';
   var map = L.mapbox.map('map', 'mapbox.dc-markers');
   var markerList = document.getElementById('marker-list');
+  var geolocate = document.getElementById('geolocate');
+  
+  var myLayer = L.mapbox.featureLayer().addTo(map);
 
   map.featureLayer.on('ready', function(e) {
       map.featureLayer.eachLayer(function(layer) {
@@ -56,5 +63,44 @@ L.mapbox.accessToken = 'pk.eyJ1Ijoic2Vrb2xhIiwiYSI6Ik5lV1dNV0kifQ.LbGm-Y6EyUaPQw
           };
       });
   });
+  if (!navigator.geolocation) {
+    geolocate.innerHTML = 'Geolocation is not available';
+} else {
+    geolocate.onclick = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        map.locate();
+    };
+}
+
+// Once we've got a position, zoom and center the map
+// on it, and add a single marker.
+map.on('locationfound', function(e) {
+    map.fitBounds(e.bounds);
+
+    myLayer.setGeoJSON({
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [e.latlng.lng, e.latlng.lat]
+        },
+        properties: {
+            'title': 'Here I am!',
+            'marker-color': '#ff8888',
+            'marker-symbol': 'star'
+        }
+    });
+
+    // And hide the geolocation button
+    geolocate.parentNode.removeChild(geolocate);
+});
+
+// If the user chooses not to allow their location
+// to be shared, display an error message.
+map.on('locationerror', function() {
+    geolocate.innerHTML = 'Position could not be found';
+});
+  
+  
 </script>
 @stop

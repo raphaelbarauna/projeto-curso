@@ -1,21 +1,15 @@
-@extends('app')
-
-@section('content')
 <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.css' rel='stylesheet' />
 <style>
   body { margin:0; padding:0; }
-  #map { position:absolute; right:30%; top:20%; bottom:0; width:20%; height: 60%;}
+  #map { position:absolute; top:20%; bottom:0; width:20%; height: 50%;}
 </style>
 
 <style>
   body { margin:0; padding:0; }
-  #map { position:absolute; right:30%; top:20%; bottom:0; width:20%; height: 60%;}
- <div class="col-sm-3">
-    <div class="left-sidebar">
-<h2>Restaurantes</h2>
-        <div class="panel-group category-products" id="accordian"><!--category-products-->
-                     			                    
+  #map { position:absolute; 
+  top:20%; bottom:0; width:20%; height: 50%;}
+ 
  #marker-list {
       position:absolute;
       top:20%; right:0; width:1000px;
@@ -33,14 +27,9 @@
   #marker-list li:hover {
       background:#eee;
   }
-  </style>
+</style>
 <div id='map'></div>
 <ul id='marker-list'></ul>
-  <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title"><a href="#"></a></h4>
-                    </div>
-                </div>
 <script>
 L.mapbox.accessToken = 'pk.eyJ1Ijoic2Vrb2xhIiwiYSI6Ik5lV1dNV0kifQ.LbGm-Y6EyUaPQwRcSMS0rw';
   var map = L.mapbox.map('map', 'mapbox.dc-markers');
@@ -57,4 +46,3 @@ L.mapbox.accessToken = 'pk.eyJ1Ijoic2Vrb2xhIiwiYSI6Ik5lV1dNV0kifQ.LbGm-Y6EyUaPQw
       });
   });
 </script>
-@stop

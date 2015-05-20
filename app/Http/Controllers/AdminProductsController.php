@@ -7,9 +7,6 @@ use CodeCommerce\Http\Requests\ProuctImageRequest;
 use CodeCommerce\Http\Requests;
 use CodeCommerce\Http\Controllers\Controller;
 
-
-
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;

@@ -43,5 +43,10 @@ class Product extends Model {
 	public function scopeRecommend($query)
 	{
 		    return $query->where('recommend','=', 1);
-	}	
+	}
+     // função para especificar o escopo	
+	public function scopeOfCategory($query, $type)
+	{
+		    return $query->where('category_id','=', $type);
+	}
 }

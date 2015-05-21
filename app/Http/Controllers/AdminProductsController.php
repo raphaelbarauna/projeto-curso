@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
-
+use Illuminate\Contracts\Filesystem\Factory;
 
 
 class AdminProductsController extends Controller {
@@ -82,31 +82,29 @@ class AdminProductsController extends Controller {
 			return view('products.create_images', compact('product'));
 		}
 
-
-
     public function storeImage(Requests\ProductImageRequest $request, $id, ProductImage $productImage)
 		{
-
             $file = $request->file('image');
 			
 			$extension = $file->getClientOriginalExtension();
 			//cria imagem no banco de dados
 			$image = $productImage::create(['product_id'=>$id, 'extension'=>$extension]);
 			//informa o local da imagem
-			Storage::disk('public_local')->put($image->id.'.'.$extension, File::get($file));
-			
+			$diskCloud = Storage::disk('s3');
+			$diskCloud->put($image->id.'.'.$extension, File::get($file));
 			return redirect()->route('products.images', ['id'=>$id]);
 		}
     public function destroyImage(ProductImage $productImage, $id)
     {
-        $image = $productImage->find($id);
+            $image = $productImage->find($id);
+             
+            $diskCloud = Storage::disk('s3')->delete($image->id.'.'.$image->extension);
+            								
+            $product = $image->product;
+            $image->delete();
 
-        Storage::disk('public_local')->delete($image->id.'.'.$image->extension);
-
-        $product = $image->product;
-        $image->delete();
-
-        return redirect()->route('products.images', ['id'=>$product->id]);
+            return redirect()->route('products.images', ['id'=>$id]);
+		
     }
 }
 

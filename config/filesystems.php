@@ -55,10 +55,9 @@ return [
 
 		's3' => [
 			'driver' => 's3',
-			'key'    => 'your-key',
-			'secret' => 'your-secret',
-			'region' => 'your-region',
-			'bucket' => 'your-bucket',
+			'key'    => 'AKIAI22MTBGEMCYEK7PA',
+			'secret' => 'pIadr1jR1KLiHuIfo0OrK+0i0VO/ITuzH42BD3fw',
+			'bucket' => 'barauna',
 		],
 
 		'rackspace' => [

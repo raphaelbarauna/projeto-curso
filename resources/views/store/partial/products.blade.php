@@ -12,10 +12,12 @@
                 <div class="productinfo text-center">
                     
 					@if(count($product->images))
-					<img src"{{url('uploads/'.$product->images->first()->id.'.'.$product->images->first()->extension)}}" 
-				         alt="" width "200" />
+					<img src="{{url('uploads/'.$product->images->first()->id.'.'.$product->images->first()->extension)}}" alt="" width="200" />
+
+                    <!-- <img src="{{url('https://s3-us-west-2.amazonaws.com/barauna/'.$product->images->first()->id.'.'.$product->images->first()->extension)}}" alt="" width "200" /> Amazon -->
+
                     @else
-					<img src="{{ url('images/no-img.jpg')}}" alt="" width "200" />	
+					<img src="{{ url('images/no-img.jpg')}}" alt="" width="200" />
 					@endif
 					
 				   <h2>R$ {{ $product->price }}</h2>

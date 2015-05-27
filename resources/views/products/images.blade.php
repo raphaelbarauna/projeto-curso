@@ -3,7 +3,7 @@
 <div class="container">
 <h1>Imagens de {{ $product->name }}</h1>
 
-<a href="{{ route ('products.images.create', $product->id)}}" class="btn btn-default">Nova Imagem</a>
+<a href="{{ route('products.images.create', $product->id)}}" class="btn btn-default">Nova Imagem</a>
 <br>
 <br>
 <table class="table">
@@ -18,18 +18,18 @@
         <tr>
             <td>{{$image->id}}</td>
             <td>
-			    <img src="{{url('uploads/'.$image->id.'.'.$image->extension) }}" width="80">
-			</td>
+			   <img src="{{ url('uploads/'.$image->id.'.'.$image->extension) }}" width="80" />
+
+               <!-- <img src="{{url('https://s3-us-west-2.amazonaws.com/barauna/'.$image->id.'.'.$image->extension) }}" width="80"> AMAZON-->
+
+            </td>
             <td>{{$image->extension}}</td>      
             <td>
-    <a href="{{ route('products.images.destroy', ['id'=>$image->id]) }}">
+                <a href="{{ route('products.images.destroy', ['id'=>$image->id]) }}">
            Delete
-    </a>
+                </a>
             </td>
-
-
         </tr>
-  
     @endforeach
 
         </table>

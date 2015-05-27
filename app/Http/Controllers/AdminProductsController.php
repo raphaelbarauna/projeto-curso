@@ -90,20 +90,31 @@ class AdminProductsController extends Controller {
 			//cria imagem no banco de dados
 			$image = $productImage::create(['product_id'=>$id, 'extension'=>$extension]);
 			//informa o local da imagem
-			$diskCloud = Storage::disk('s3');
-			$diskCloud->put($image->id.'.'.$extension, File::get($file));
+
+           Storage::disk('public_local')->put($image->id.'.'.$extension, File::get($file));
+
+            /* USANDO amazon S3
+            $diskCloud = Storage::disk('s3');
+			$diskCloud->put($image->id.'.'.$extension, File::get($file));*/
 			return redirect()->route('products.images', ['id'=>$id]);
 		}
     public function destroyImage(ProductImage $productImage, $id)
     {
             $image = $productImage->find($id);
-             
-            $diskCloud = Storage::disk('s3')->delete($image->id.'.'.$image->extension);
-            								
+
+        if(file_exists(public_path() .'/uploads/'.$image->id.'.'.$image->extension)) {
+
+            Storage::disk('public_local')->delete($image->id.'.'.$image->extension);
+        }
+              /*    USANDO AMAZON S3
+              $diskCloud = Storage::disk('s3');
+              $diskCloud->delete($image->id.'.'.$image->extension);*/
+
+
             $product = $image->product;
             $image->delete();
 
-            return redirect()->route('products.images', ['id'=>$id]);
+            return redirect()->route('products.images', ['id'=>$product->id]);
 		
     }
 }

@@ -55,8 +55,8 @@ return [
 
 		's3' => [
 			'driver' => 's3',
-			'key'    => 'AKIAI22MTBGEMCYEK7PA',
-			'secret' => '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',
+			'key'    => 'AKIAJZ2WJPMQRVM5H6YQ',
+			'secret' => '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',
 			'bucket' => 'barauna',
 		],
 

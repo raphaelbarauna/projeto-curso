@@ -7,11 +7,14 @@ use CodeCommerce\Http\Requests\ProuctImageRequest;
 use CodeCommerce\Http\Requests;
 use CodeCommerce\Http\Controllers\Controller;
 
+
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Contracts\Filesystem\Factory;
+
 
 
 class AdminProductsController extends Controller {
@@ -20,7 +23,7 @@ class AdminProductsController extends Controller {
 	
 	public function __construct(Product $productModel)
 	{
-		 $this->productModel = $productModel;
+        $this->productModel = $productModel;
 	}
 	
 	public function index()
@@ -82,40 +85,35 @@ class AdminProductsController extends Controller {
 			return view('products.create_images', compact('product'));
 		}
 
+
+
     public function storeImage(Requests\ProductImageRequest $request, $id, ProductImage $productImage)
 		{
+
             $file = $request->file('image');
 			
 			$extension = $file->getClientOriginalExtension();
 			//cria imagem no banco de dados
 			$image = $productImage::create(['product_id'=>$id, 'extension'=>$extension]);
 			//informa o local da imagem
-
-           Storage::disk('public_local')->put($image->id.'.'.$extension, File::get($file));
-
-            /* USANDO amazon S3
-            $diskCloud = Storage::disk('s3');
-			$diskCloud->put($image->id.'.'.$extension, File::get($file));*/
+			Storage::disk('public_local')->put($image->id.'.'.$extension, File::get($file));
+			
 			return redirect()->route('products.images', ['id'=>$id]);
 		}
     public function destroyImage(ProductImage $productImage, $id)
     {
-            $image = $productImage->find($id);
-
+        $image = $productImage->find($id);
         if(file_exists(public_path() .'/uploads/'.$image->id.'.'.$image->extension)) {
 
-            Storage::disk('public_local')->delete($image->id.'.'.$image->extension);
+            Storage::disk('public_local')->delete($image->id . '.' . $image->extension);
         }
-              /*    USANDO AMAZON S3
-              $diskCloud = Storage::disk('s3');
-              $diskCloud->delete($image->id.'.'.$image->extension);*/
+
+        $product = $image->product;
+        $image->delete();
 
 
-            $product = $image->product;
-            $image->delete();
+        return redirect()->route('products.images', ['id'=>$product->id]);
 
-            return redirect()->route('products.images', ['id'=>$product->id]);
-		
     }
 }
 

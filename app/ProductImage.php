@@ -9,7 +9,7 @@ class ProductImage extends Model {
 	    'extension'
 	];	  
 		
-	public function products()
+	public function product()
 	{
 		return $this->belongsTo('CodeCommerce\Product');
 	}

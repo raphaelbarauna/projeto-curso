@@ -1,8 +1,7 @@
 <?php namespace CodeCommerce;
 
-use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model {
+class Cart  {
      
 	 private $items;
 	 //metodo para inializar array de itens
@@ -13,14 +12,15 @@ class Cart extends Model {
 	
     public function add($id, $name, $price)
 	{
-		$this->items + [
+		$this->items += [
 		    $id => [
 			     //verificar a quantidade e somar se n tiver so adicionar 1
 			    'qtd' => isset($this->items[$id]['qtd']) ? $this->items[$id]['qtd']++ : 1,
 				'price' => $price,
 				'name' => $name
 			]
-		]; 		
+		];
+        return $this->items;
 	}	
 	public function remove($id)
 	{

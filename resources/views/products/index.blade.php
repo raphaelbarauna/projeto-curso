@@ -31,11 +31,11 @@
    </td>
       
    <td> 
-	 <a href="{{ route('products.destroy',['id'=>$product->id])}}">Deletar</a>
+	 <a href="{{ route('products.destroy',['id'=>$product->id]) }}">Deletar</a>
       |  
-	<a href="{{ route('products.edit',['id'=>$product->id])}}">Editar</a>
+	<a href="{{ route('products.edit',['id'=>$product->id]) }}">Editar</a>
 	   |
-	<a href="{{ route('products.images',['id'=>$product->id])}}">Imagem</a>   
+	<a href="{{ route('products.images',['id'=>$product->id] )}}">Imagem</a>
 	
    </td>
 </tr>

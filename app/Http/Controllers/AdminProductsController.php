@@ -8,8 +8,7 @@ use CodeCommerce\Http\Requests;
 use CodeCommerce\Http\Controllers\Controller;
 
 
-
-
+use Guzzle\Tests\Common\Cache\NullCacheAdapterTest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -35,8 +34,8 @@ class AdminProductsController extends Controller {
 	
     public function create(Category $category)
 	{
-		$categories = $category->lists('name','id');
-		return view('products.create', compact('categories'));
+        $categories = $category->lists('name', 'id');
+        return view('products.create', compact('categories'));
 		
 	}
 
@@ -55,20 +54,44 @@ class AdminProductsController extends Controller {
 	public function edit($id, Category $category)
 		{
             $categories = $category->lists('name','id');
-		    $product = $this->productModel->find($id);
+
+		     $product = $this->productModel->find($id);
+
             return view('products.edit', compact('product', 'categories'));
 		}
 		// Função para dar update no banco
 	public function update(Requests\ProductRequest $request, $id)
 		{
             $this->productModel->find($id)->update($request->all());
-		    return redirect()->route('products');
+
+		     return redirect()->route('products');
 		}
 		// Função para excluir categoria
-	public function destroy($id)
+
+    public function destroy($id)
 		{
-			$this->productModel->find($id)->delete();
-			return redirect()->route('products');
+
+            $image = ProductImage::where('product_id','=',$id);
+
+            if($image->count()){
+
+                foreach($image->get() as $valor) {
+
+                        if (file_exists(public_path() . '/uploads/' . $valor['id'] . '.' . $valor['extension']))
+                        {
+                            Storage::disk('public_local')->delete($valor['id'] . '.' . $valor['extension']);
+
+                        ProductImage::where('id', '=', $valor['id'])->delete();
+
+                    }
+                }
+            }
+
+
+            Product::find($id)->delete();
+
+            return redirect()->route('products');
+
 		}
 		// Função para receber as imagens
 	public function images($id)
@@ -86,7 +109,6 @@ class AdminProductsController extends Controller {
 		}
 
 
-
     public function storeImage(Requests\ProductImageRequest $request, $id, ProductImage $productImage)
 		{
 
@@ -100,9 +122,11 @@ class AdminProductsController extends Controller {
 			
 			return redirect()->route('products.images', ['id'=>$id]);
 		}
+
     public function destroyImage(ProductImage $productImage, $id)
     {
         $image = $productImage->find($id);
+
         if(file_exists(public_path() .'/uploads/'.$image->id.'.'.$image->extension)) {
 
             Storage::disk('public_local')->delete($image->id . '.' . $image->extension);

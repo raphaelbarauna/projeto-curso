@@ -12,10 +12,10 @@
        		   @endforeach
 				</ul>				
 			@endif
-			
+
 		  {!! Form::open(['route'=>'products.store', 'method'=>'post' ]) !!}
 		   
-		     <div class="form-group">
+		  <div class="form-group">
 		   {!! Form::label('category', 'Category:') !!}
 		   {!! Form::select('category_id', $categories, ['class'=>'form-control']) !!}
 		   </div>

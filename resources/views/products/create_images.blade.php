@@ -24,7 +24,7 @@
 		<div class="form-group">
 	        {!! Form::submit('Upload', ['class'=>'btn btn-primary']) !!}
 		  
-		  <a href = "{{route('products')}}"</a>
+		  <a href = "{{route('products')}}"></a>
 		   
 		</div>
 		{!! Form::close() !!}

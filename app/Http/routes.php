@@ -38,6 +38,7 @@
 		Route::post('store/{id}/product',['as'=>'products.images.store', 'uses'=>'AdminProductsController@storeImage']);
         Route::get('destroy/{id}/image',['as'=>'products.images.destroy', 'uses'=>'AdminProductsController@destroyImage']);
 	});
+
         Route::group(['prefix'=>'tags'], function(){
     
         Route::get('{id}/product',['as'=>'products.tags', 'uses'=>'AdminProductsController@tags']);
@@ -63,6 +64,8 @@ Route::get('cart/add/{id}', ['as' => 'cart.add', 'uses' => 'CartController@add']
 Route::get('cart/destroy/{id}', ['as' => 'cart.destroy', 'uses' => 'CartController@destroy']);
 
 Route::get('checkout/placeOrder', ['as' => 'checkout.place', 'uses' => 'CheckoutController@place']);
+
+
 
 
 

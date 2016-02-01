@@ -12,6 +12,9 @@
    <link href="/css/all.css" rel="stylesheet" type="text/css" />
 
 
+  
+
+
 </head><!--/head-->
 
 <body>
@@ -141,8 +144,8 @@
 
 </footer><!--/Footer-->
 
- <script src="/js/all.js" type="text/javascript"></script>
 
+ <script src="/js/all.js" type="text/javascript"></script>
 
 
 </body>

@@ -451,8 +451,4 @@ $(document).ready(function(){
 	});
 });
 
-<<<<<<< HEAD
 //# sourceMappingURL=all.js.map
-=======
-//# sourceMappingURL=all.js.map
->>>>>>> 7850dfbae568228e3284e1c63ea44cf339998bb0

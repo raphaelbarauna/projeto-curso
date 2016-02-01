@@ -23,7 +23,9 @@ class Product extends Model {
 	  }
 	   public function tags()
 	{
+
 		    return $this->hasMany('CodeCommerce\Tag');
+		 
 	}		
 	 public function getTagListAttribute()
 	{

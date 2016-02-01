@@ -3,13 +3,20 @@
 use CodeCommerce\Category;
 use CodeCommerce\Product;
 use CodeCommerce\ProductImage;
+
 use CodeCommerce\ProductTag;
 use CodeCommerce\Tag;
+
+
 use CodeCommerce\Http\Requests\ProuctImageRequest;
 use CodeCommerce\Http\Requests;
 use CodeCommerce\Http\Controllers\Controller;
 
+
 use DB;
+
+
+
 use Guzzle\Tests\Common\Cache\NullCacheAdapterTest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -22,6 +29,7 @@ class AdminProductsController extends Controller {
     
 	private $productModel;
 	
+
 	public function __construct(Product $productModel, ProductTag $productTagModel)
 	{
         $this->productModel = $productModel;
@@ -33,6 +41,7 @@ class AdminProductsController extends Controller {
 		$products = $this->productModel->paginate(10);
 		return view('products.index', compact('products'));
 		
+
 	}
 	
     public function create(Category $category)
@@ -202,5 +211,8 @@ class AdminProductsController extends Controller {
 	
 		return redirect()->route('products');
 	}
-}
+
+	}
+	
+  
 

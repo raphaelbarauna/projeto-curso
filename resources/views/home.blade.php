@@ -1,6 +1,7 @@
 @extends('app')
 
 @section('content')
+
 <html>
 	<head>
 		<title>Laravel</title>
@@ -14,5 +15,15 @@
 
 	</body>
 </html>
+
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+
+
+    </body>
+   
+    </html>
 
 @stop

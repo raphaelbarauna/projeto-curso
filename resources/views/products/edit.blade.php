@@ -44,7 +44,11 @@
 			{!! Form::radio('recommend', 1,($product->recommend)?true:false, ['class' => 'field']) !!} Yes
             {!! Form::radio('recommend', 0,(!$product->recommend)?true:false, ['class' => 'field']) !!} No
 		  </div>
+<<<<<<< HEAD
 
+=======
+		  
+>>>>>>> 7850dfbae568228e3284e1c63ea44cf339998bb0
 		  <div class="form-group">
 		   {!! Form::label('description', 'Description:') !!}
 		   {!! Form::textarea('description', $product->description, ['class'=>'form-control']) !!}

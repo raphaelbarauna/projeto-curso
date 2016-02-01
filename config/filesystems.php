@@ -47,13 +47,17 @@ return [
 			'driver' => 'local',
 			'root'   => storage_path().'/app',
 		],
+		
+          'public_local' => [
+			'driver' => 'local',
+			'root'   => public_path().'/uploads',
+		],
 
 		's3' => [
 			'driver' => 's3',
-			'key'    => 'your-key',
-			'secret' => 'your-secret',
-			'region' => 'your-region',
-			'bucket' => 'your-bucket',
+			'key'    => '',
+			'secret' => '',
+			'bucket' => 'barauna',
 		],
 
 		'rackspace' => [

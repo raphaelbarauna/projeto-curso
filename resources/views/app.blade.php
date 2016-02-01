@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Laravel</title>
 
-	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+	<link href="/css/all.css" rel="stylesheet">
 
 	<!-- Fonts -->
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -33,7 +33,9 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="{{ url('/') }}">Home</a></li>
+					<li><a href="{{ url('/home') }}">Home</a></li>
+					<li><a href="{{ route('categories') }}">Categorias</a></li>
+					<li><a href="{{ route('products') }}">Produtos</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
@@ -58,5 +60,6 @@
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script href="/js/all.js'"></script>
 </body>
 </html>

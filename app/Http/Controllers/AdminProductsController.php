@@ -14,6 +14,7 @@ use CodeCommerce\Http\Controllers\Controller;
 
 
 use DB;
+use PDO;
 
 
 
@@ -52,14 +53,53 @@ class AdminProductsController extends Controller {
 		
 	}
 
-    public function store(Requests\ProductRequest $request)
+    public function store(Requests\ProductRequest $request, ProductTag $productTag)
 	    {
             $input = $request->all();
 	 
-	        $product = $this->productModel->fill($input);
+	        //$product = $this->productModel->fill($input);
+	 		
+	 		   $idgerado = DB::table('products')
+                  ->insertGetId(array(                                    
+                                    'category_id' => $input['category_id'],
+                                    'name' => $input['name'],
+                                    'price' => $input['price'],
+                                    'description' => $input['description'],
+                                    'featured' => $input['featured'],
+                                    'recommend' => $input['recommend']
+                                    ));
+
+    $id = ['idgerado' => $idgerado];
+    
+	 	 // recebendo todos os dados da request
 	 
-	        $product->save();
-	 
+	 	$result = explode(',', $input['tag']);
+	 	
+	 		for($i=0; $i < count($result);$i++)
+	 		{
+ 		
+	 			if(!DB::table('tags')->where('name', '=' ,$result[$i])->get())
+	 			{
+
+				$tag = new Tag();    //passar os dados preenchidos
+	 			
+	 			$tag->name = $result[$i];
+
+	 			$tag->save(); // salvar os dados no banco.
+	 			
+				}
+			}
+
+			for($i=0; $i < count($result);$i++)
+	 		{
+	 			$consulta[] = DB::table('tags')->where('name', '=' ,$result[$i])->get();
+	 		}
+ 			
+ 			for($i=0; $i < count($consulta);$i++)
+	 		{
+	 			$productTag::create(['product_id'=>$id['idgerado'], 'tag_id'=>$consulta[$i]['0']->id]);	
+	 		}
+	 		
 	    return redirect()->route('products');
 	    }	
 		// Funçao para editr categoria
@@ -68,9 +108,27 @@ class AdminProductsController extends Controller {
 		{
             $categories = $category->lists('name','id');
 
-		     $product = $this->productModel->find($id);
+		    $product = $this->productModel->find($id);
 
-            return view('products.edit', compact('product', 'categories'));
+		    $tags = \DB::select('SELECT p.tag_id,t.name FROM PRODUCT_TAG as p INNER JOIN tags as t ON (t.id = p.tag_id) WHERE p.product_id = ?',[$id]);
+	    
+
+		    for($i=0; $i< count($tags);$i++){
+
+		    	
+		    	$novo[] =  $tags[$i]->name;
+		    	
+		    }
+		   	$tagsEdit['tags'] = null;
+
+		    for($i=0; $i< count($novo);$i++){
+
+		    	
+		    	$tagsEdit['tags'] =  $tagsEdit['tags'].','. $novo[$i];
+		    	
+		    }
+		    
+            return view('products.edit', compact('product', 'categories','tagsEdit'));
 		}
 		// Função para dar update no banco
 	public function update(Requests\ProductRequest $request, $id)
@@ -159,7 +217,7 @@ class AdminProductsController extends Controller {
 			$tags = \DB::select('SELECT p.tag_id,t.name FROM PRODUCT_TAG as p INNER JOIN tags as t ON (t.id = p.tag_id) WHERE p.product_id = ?',[$id]);
 			
 			$product = $this->productModel->find($id);
-
+			//dd($tags);
 			return view('products.tags', compact('tags','product'));
 	}
     public function createTag($id)

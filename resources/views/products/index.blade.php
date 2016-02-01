@@ -36,10 +36,8 @@
 	<a href="{{ route('products.edit',['id'=>$product->id]) }}">Editar</a>
 	   |
 	<a href="{{ route('products.images',['id'=>$product->id] )}}">Imagem</a>
-
-	    |
+     |
   <a href="{{ route('products.tags',['id'=>$product->id] )}}">Tag</a>
-
    </td>
 </tr>
   @endforeach

@@ -48,7 +48,11 @@
 		   {!! Form::label('description', 'Description :') !!}
 		   {!! Form::textarea('description', null, ['class'=>'form-control']) !!}
 		  </div>
-          
+          <div class="form-group">
+		   {!! Form::label('tag', 'Tags :') !!}
+		   {!! Form::textarea('tag', null, ['class'=>'form-control','placeholder'=>'Separe as tags por virgula..']) !!}
+		   </div>
+
 		  <div class="form-group">
 		   {!! Form::submit('Add Product', ['class'=>'btn btn-primary form-control']) !!}
 		  </div>

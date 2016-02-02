@@ -18,21 +18,25 @@ class Product extends Model {
 		    return $this->hasMany('CodeCommerce\ProductImage');
 	}		
     public function category()
-	  {
-		    return $this->belongsTo('CodeCommerce\Category');
-	  }
-	   public function tags()
 	{
+		    return $this->belongsTo('CodeCommerce\Category');
+	}
 
-		    return $this->hasMany('CodeCommerce\Tag');
-		 
-	}		
+    public function tags()
+    {
+        return $this->belongsToMany('CodeCommerce\Tag');
+    }
+
 	 public function getTagListAttribute()
 	{
-		   return $this->tags->lists('name');
-			
-			return implode (',', $tags);
-	}	
+		
+		$tags =  $this->tags->lists('name');
+		
+		$tags = (implode(", ", $tags));
+
+		return $tags;
+	}
+
 	public function getNameDescriptionAttribute()
 	{
 		return $this->name." - ".$this->description;
@@ -41,7 +45,8 @@ class Product extends Model {
 	public function scopeFeatured($query)
 	{
 		    return $query->where('featured','=', 1);
-	}		
+	}
+
 	public function scopeRecommend($query)
 	{
 		    return $query->where('recommend','=', 1);
@@ -51,4 +56,9 @@ class Product extends Model {
 	{
 		    return $query->where('category_id','=', $type);
 	}
+
+    public function scopeOfTag($query, $id)
+    {
+        return $query->where('tag_id', '=', $id);
+    }
 }

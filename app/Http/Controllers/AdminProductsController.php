@@ -4,7 +4,7 @@ use CodeCommerce\Category;
 use CodeCommerce\Product;
 use CodeCommerce\ProductImage;
 
-use CodeCommerce\ProductTag;
+
 use CodeCommerce\Tag;
 
 
@@ -14,9 +14,6 @@ use CodeCommerce\Http\Controllers\Controller;
 
 
 use DB;
-use PDO;
-
-
 
 use Guzzle\Tests\Common\Cache\NullCacheAdapterTest;
 use Illuminate\Http\Request;
@@ -31,10 +28,10 @@ class AdminProductsController extends Controller {
 	private $productModel;
 	
 
-	public function __construct(Product $productModel, ProductTag $productTagModel)
+	public function __construct(Product $productModel)
 	{
         $this->productModel = $productModel;
-        $this->productTagModel = $productTagModel;
+        
 	}
 	
 	public function index()
@@ -53,90 +50,53 @@ class AdminProductsController extends Controller {
 		
 	}
 
-    public function store(Requests\ProductRequest $request, ProductTag $productTag)
-	    {
-            $input = $request->all();
-	 
-	        //$product = $this->productModel->fill($input);
+    public function store(Requests\ProductRequest $request)
+    {
+        $input = $request->all();
+
+        $input['featured'] = $request->get('featured') ? true : false;
+
+        $input['recommend'] = $request->get('recommend') ? true : false;
+
+        $arrayTags = $this->tagToArray($input['tags']);
+
+        $product = $this->productModel->fill($input);
+
+        $product->save();
+
+        $product->tags()->sync($arrayTags);
+
+        return redirect()->route('products');
+    }
 	 		
-	 		   $idgerado = DB::table('products')
-                  ->insertGetId(array(                                    
-                                    'category_id' => $input['category_id'],
-                                    'name' => $input['name'],
-                                    'price' => $input['price'],
-                                    'description' => $input['description'],
-                                    'featured' => $input['featured'],
-                                    'recommend' => $input['recommend']
-                                    ));
 
-    $id = ['idgerado' => $idgerado];
-    
-	 	 // recebendo todos os dados da request
-	 
-	 	$result = explode(',', $input['tag']);
-	 	
-	 		for($i=0; $i < count($result);$i++)
-	 		{
- 		
-	 			if(!DB::table('tags')->where('name', '=' ,$result[$i])->get())
-	 			{
-
-				$tag = new Tag();    //passar os dados preenchidos
-	 			
-	 			$tag->name = $result[$i];
-
-	 			$tag->save(); // salvar os dados no banco.
-	 			
-				}
-			}
-
-			for($i=0; $i < count($result);$i++)
-	 		{
-	 			$consulta[] = DB::table('tags')->where('name', '=' ,$result[$i])->get();
-	 		}
- 			
- 			for($i=0; $i < count($consulta);$i++)
-	 		{
-	 			$productTag::create(['product_id'=>$id['idgerado'], 'tag_id'=>$consulta[$i]['0']->id]);	
-	 		}
-	 		
-	    return redirect()->route('products');
-	    }	
 		// Funçao para editr categoria
 		
 	public function edit($id, Category $category)
-		{
+	{
             $categories = $category->lists('name','id');
 
 		    $product = $this->productModel->find($id);
-
-		    $tags = \DB::select('SELECT p.tag_id,t.name FROM PRODUCT_TAG as p INNER JOIN tags as t ON (t.id = p.tag_id) WHERE p.product_id = ?',[$id]);
-	    
-
-		    for($i=0; $i< count($tags);$i++){
-
-		    	
-		    	$novo[] =  $tags[$i]->name;
-		    	
-		    }
-		   	$tagsEdit['tags'] = null;
-
-		    for($i=0; $i< count($novo);$i++){
-
-		    	
-		    	$tagsEdit['tags'] =  $tagsEdit['tags'].','. $novo[$i];
-		    	
-		    }
 		    
-            return view('products.edit', compact('product', 'categories','tagsEdit'));
-		}
+			$tags = $product->tag_list;
+		    
+            return view('products.edit', compact('product', 'categories','tags'));
+	}
 		// Função para dar update no banco
 	public function update(Requests\ProductRequest $request, $id)
-		{
-            $this->productModel->find($id)->update($request->all());
+	{
+        $input = $request->all();
 
-		     return redirect()->route('products');
-		}
+        $arrayTags = $this->tagToArray($input['tags']);
+
+        $this->productModel->find($id)->update($input);
+
+        $product = Product::find($id);
+
+        $product->tags()->sync($arrayTags);
+
+		return redirect()->route('products');
+	}
 		// Função para excluir categoria
 
     public function destroy($id)
@@ -212,63 +172,18 @@ class AdminProductsController extends Controller {
 
     }
 
-    public function tags($id)
-	{
-			$tags = \DB::select('SELECT p.tag_id,t.name FROM PRODUCT_TAG as p INNER JOIN tags as t ON (t.id = p.tag_id) WHERE p.product_id = ?',[$id]);
-			
-			$product = $this->productModel->find($id);
-			//dd($tags);
-			return view('products.tags', compact('tags','product'));
-	}
-    public function createTag($id)
-	{
-		$product = $this->productModel->find($id);
-		
-		return view('products.create_tags', compact('product'));
-	}
-	public function storeTag(Requests\tagRequest $request,$id , ProductTag $productTag)
-	{
+    private function tagToArray($tags)
+    {
+        $tags = explode(",", $tags);
+        $tags = array_map('trim', $tags);
+        $tagCollection = [];
+        foreach ($tags as $tag) {
+            $t = Tag::firstOrCreate(['name' => $tag]);
+            array_push($tagCollection, $t->id);
+        }
+        return $tagCollection;
+    }
 
-	 	$input = $request->all(); // recebendo todos os dados da request
-	 
-	 	$result = explode(',', $input['name']);
-	 	
-	 		for($i=0; $i < count($result);$i++)
-	 		{
- 		
-	 			if(!DB::table('tags')->where('name', '=' ,$result[$i])->get())
-	 			{
-
-				$tag = new Tag();    //passar os dados preenchidos
-	 			
-	 			$tag->name = $result[$i];
-
-	 			$tag->save(); // salvar os dados no banco.
-	 			
-				}
-			}
-
-			for($i=0; $i < count($result);$i++)
-	 		{
-	 			$consulta[] = DB::table('tags')->where('name', '=' ,$result[$i])->get();
-	 		}
- 			
- 			for($i=0; $i < count($consulta);$i++)
-	 		{
-	 			$productTag::create(['product_id'=>$id, 'tag_id'=>$consulta[$i]['0']->id]);	
-	 		}
-								 
-	 return redirect()->route('products');
-
-	}		
-
-	public function destroyTag($id)
-	{
-
-		$this->productTagModel->find($id)->delete();
-	
-		return redirect()->route('products');
-	}
 
 	}
 	

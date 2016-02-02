@@ -49,8 +49,8 @@
 		   {!! Form::textarea('description', null, ['class'=>'form-control']) !!}
 		  </div>
           <div class="form-group">
-		   {!! Form::label('tag', 'Tags :') !!}
-		   {!! Form::textarea('tag', null, ['class'=>'form-control','placeholder'=>'Separe as tags por virgula..']) !!}
+		   {!! Form::label('tags', 'Tags :') !!}
+		   {!! Form::textarea('tags', null, ['class'=>'form-control','placeholder'=>'Separe as tags por virgula..']) !!}
 		   </div>
 
 		  <div class="form-group">

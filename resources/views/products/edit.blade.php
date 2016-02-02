@@ -49,6 +49,10 @@
 		   {!! Form::label('description', 'Description:') !!}
 		   {!! Form::textarea('description', $product->description, ['class'=>'form-control']) !!}
 		  </div>
+		  <div class="form-group">
+    		{!! Form::label('tags', 'Tags:') !!}
+    		{!! Form::textarea('tags', $tags, ['class'=>'form-control']) !!}
+			</div>
           
 		  <div class="form-group">
 		   {!! Form::submit('Salvar Category', ['class'=>'btn btn-primary form-control']) !!}

@@ -9,7 +9,7 @@
     <title>Home | E-Shop</title>
    
 
-   <link href="/css/all.css" rel="stylesheet" type="text/css" />
+   <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
 
 
   
@@ -145,7 +145,7 @@
 </footer><!--/Footer-->
 
 
- <script src="/js/all.js" type="text/javascript"></script>
+ <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
 
 
 </body>

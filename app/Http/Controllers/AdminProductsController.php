@@ -37,6 +37,7 @@ class AdminProductsController extends Controller {
 	public function index()
 	{
 		$products = $this->productModel->paginate(10);
+		
 		return view('products.index', compact('products'));
 		
 
@@ -183,7 +184,11 @@ class AdminProductsController extends Controller {
         }
         return $tagCollection;
     }
-
+    public function showProductByTag($id)
+	{
+    $productsWithTag = Tag::find($id)->products()->get();
+    dd($productsWithTag);
+	}
 
 	}
 	

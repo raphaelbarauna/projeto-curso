@@ -2,7 +2,7 @@
 
 use CodeCommerce\Http\Requests;
 use CodeCommerce\Http\Controllers\Controller;
-
+use CodeCommerce\Tag;
 use Illuminate\Http\Request;
 use CodeCommerce\Category;
 use CodeCommerce\Product;
@@ -33,8 +33,25 @@ class StoreController extends Controller {
 		{
 			
 			$categories = Category::all();
+
 			$product = Product::find($id);
-						
+
+			//$productsWithTag = $this->showProductByTag($id);			
 			return view('store.product', compact('categories', 'product'));
-		}	
+		}
+		public function showProductByTag($id)
+		{
+    	$productsWithTag = Tag::find($id)->products()->get();
+    	dd($productsWithTag);
+		}
+		public function tag($id)
+    	{
+        $categories = Category::all();
+        
+        $tag = Tag::find($id);
+
+        $products = $tag->products;
+
+        return view('store.tag' , compact('categories', 'products', 'tag'));
+    	}
 }

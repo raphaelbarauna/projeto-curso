@@ -42,7 +42,7 @@ class StoreController extends Controller {
 		public function showProductByTag($id)
 		{
     	$productsWithTag = Tag::find($id)->products()->get();
-    	dd($productsWithTag);
+    	
 		}
 		public function tag($id)
     	{

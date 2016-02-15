@@ -1,9 +1,12 @@
 <?php namespace CodeCommerce\Http\Controllers;
 
 use CodeCommerce\Product;
- use CodeCommerce\Cart;
- use CodeCommerce\Http\Requests;
- use Illuminate\Support\Facades\Session;
+use CodeCommerce\Cart;
+use CodeCommerce\Http\Requests;
+
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Database\Eloquent\Collection;
 
  class CartController extends Controller {
 
@@ -16,9 +19,13 @@ use CodeCommerce\Product;
 	{
         // colocando o objeto cart dentro de uma sessao
 		if(!Session::has('cart')){
+
             Session::set('cart', $this->cart);
         }
-        return view('store.cart', ['cart' => Session::get('cart')]);
+
+        $k = null;
+
+        return view('store.cart', ['cart' => Session::get('cart'),'k']);
 	}
      // funcção para adicionar ao carrinho
      public function add($id)
@@ -33,8 +40,22 @@ use CodeCommerce\Product;
          Session::set('cart', $cart);
 
          return redirect()->route('cart');
-     }
-      public function destroy($id)
+    }
+
+    public function  reduce($id)
+    {
+        $cart = $this->getCart();
+
+        $product = Product::find($id);
+
+        $cart->reduce($id);
+
+        Session::set('cart', $cart);
+
+        return redirect()->route('cart');
+    }
+
+    public function destroy($id)
       {
          $cart = $this->getCart();
 
@@ -59,5 +80,6 @@ use CodeCommerce\Product;
              return $cart;
          }
      }
+
 
  }

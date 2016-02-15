@@ -12,7 +12,7 @@
    <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
 
 
-  
+  <meta name="_token" content="{!! csrf_token() !!}"/>
 
 
 </head><!--/head-->
@@ -145,7 +145,10 @@
 </footer><!--/Footer-->
 
 
+
  <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
+ 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 
 </body>

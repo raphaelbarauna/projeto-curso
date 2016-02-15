@@ -15,12 +15,12 @@
     {
 	Route::group(['prefix'=>'categories'], function(){
 		
-        Route::get('/',['as'=>'categories', 'uses'=>'AdminCategoriesController@index']);
-        Route::post('/',['as'=>'categories.store', 'uses'=>'AdminCategoriesController@store']); // Rota para action adicionar ao banco
-        Route::get('/create',['as'=>'categories.create', 'uses'=>'AdminCategoriesController@create']);
-        Route::get('/{id}/destroy',['as'=>'categories.destroy', 'uses'=>'AdminCategoriesController@destroy']);
-        Route::get('/{id}/edit',['as'=>'categories.edit', 'uses'=>'AdminCategoriesController@edit']);
-        Route::put('/{id}/update',['as'=>'categories.update', 'uses'=>'AdminCategoriesController@update']);
+        Route::get('/',                 ['as'=>'categories', 'uses'=>'AdminCategoriesController@index']);
+        Route::post('/',                ['as'=>'categories.store', 'uses'=>'AdminCategoriesController@store']); // Rota para action adicionar ao banco
+        Route::get('/create',           ['as'=>'categories.create', 'uses'=>'AdminCategoriesController@create']);
+        Route::get('/{id}/destroy',     ['as'=>'categories.destroy', 'uses'=>'AdminCategoriesController@destroy']);
+        Route::get('/{id}/edit',        ['as'=>'categories.edit', 'uses'=>'AdminCategoriesController@edit']);
+        Route::put('/{id}/update',      ['as'=>'categories.update', 'uses'=>'AdminCategoriesController@update']);
     });
     Route::group(['prefix'=>'products'], function(){
 		
@@ -57,14 +57,14 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/', 'StoreController@index');
 
-Route::get('category/{id}', ['as' => 'store.category', 'uses' => 'StoreController@category']);
-Route::get('product/{id}', ['as' => 'store.product', 'uses' => 'StoreController@product']);
-Route::get('tag/{id}', ['as' => 'store.tag', 'uses' => 'StoreController@tag']);
-Route::get('cart', ['as' => 'cart', 'uses' => 'CartController@index']);
-Route::get('cart/add/{id}', ['as' => 'cart.add', 'uses' => 'CartController@add']);
-Route::get('cart/destroy/{id}', ['as' => 'cart.destroy', 'uses' => 'CartController@destroy']);
-
-Route::get('checkout/placeOrder', ['as' => 'checkout.place', 'uses' => 'CheckoutController@place']);
+Route::get('category/{id}',         ['as' => 'store.category', 'uses' => 'StoreController@category']);
+Route::get('product/{id}',          ['as' => 'store.product', 'uses' => 'StoreController@product']);
+Route::get('tag/{id}',              ['as' => 'store.tag', 'uses' => 'StoreController@tag']);
+Route::get('cart',                  ['as' => 'cart', 'uses' => 'CartController@index']);
+Route::get('cart/add/{id}',         ['as' => 'cart.add', 'uses' => 'CartController@add']);
+Route::get('cart/destroy/{id}',     ['as' => 'cart.destroy', 'uses' => 'CartController@destroy']);
+Route::get('cart/reduce/{id}',['as' => 'cart.reduce', 'uses' => 'CartController@reduce']);
+Route::get('checkout/placeOrder',   ['as' => 'checkout.place', 'uses' => 'CheckoutController@place']);
 
 
 

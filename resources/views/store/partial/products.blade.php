@@ -18,7 +18,7 @@
                     
 					<p>{{ $product->name }}</p>
                     <a href="{{ route('store.product', ['id' => $product->id ]) }}" class="btn btn-default add-to-cart"><i class="fa fa-crosshairs"></i>Mais detalhes</a>
-
+                    
                     <a href="{{ route('cart.add', ['id'=>$product->id]) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Adicionar no carrinho</a>
                 </div>
                 <div class="product-overlay">
@@ -28,7 +28,7 @@
                         
 						<p>{{ $product->name }}</p>
                         <a href="{{ route('store.product', ['id' => $product->id ]) }}" class="btn btn-default add-to-cart"><i class="fa fa-crosshairs"></i>Mais detalhes</a>
-
+                        teste
                         <a href="{{ route('cart.add', ['id'=>$product->id]) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Adicionar no carrinho</a>
                     </div>
                 </div>

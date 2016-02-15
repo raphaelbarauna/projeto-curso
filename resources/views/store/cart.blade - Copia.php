@@ -44,9 +44,13 @@
                                R$ {{ $item['price'] }}
                            </td>
                            <td class="cart_quantity">
-                               
-                                {{ $item['qtd'] }}
-                                <a href="{{ route('cart.add', ['id'=>$k]) }}" class="btn btn-primary">+</a> 
+                              <div class="input-group" style="width: 120px">
+                                {!! Form::text('qtd', $item['qtd'], ['class'=>'form-control', 'id'=>'qtd']) !!}
+                                    <span class="input-group-btn">
+                                    <button  id="enviar" class="btn btn-success text-right" type="submit">
+                                    Alterar </button>  
+                                    </span>
+                              </div>     
                            </td>
                            <td class="cart_total">
                                <p class="cart_total_price"> R$ {{ $item['price'] * $item['qtd'] }}</p>
@@ -93,13 +97,22 @@
 @stop
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-
+@if($k != null)
 
 <script type="text/javascript">
 $(document).ready(function(){ 
 
-    $("#enviarrrr").click(function(){
+    $("#enviar").click(function(){
+     
+     if({!! $k !!}){
+      alert('teste');
+     }else{
 
+      alert('teste2');
+     }
+
+      
+      
            $.ajax({       
             type:"POST",            
             url:'cart/update',                  
@@ -125,3 +138,4 @@ $(document).ready(function(){
       });           
   });
 </script>
+@endif
